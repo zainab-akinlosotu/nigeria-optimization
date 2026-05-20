@@ -5,43 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nigeria Energy & Water Access Optimization</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
-    --blue-dark: #0C447C;
-    --blue: #185FA5;
-    --blue-mid: #378ADD;
-    --blue-light: #B5D4F4;
-    --blue-xlight: #E6F1FB;
-    --green: #1D9E75;
-    --amber: #BA7517;
+    --amethyst: #25104D;
+    --bordeaux: #5B1C2E;
+    --rose: #C2286B;
+    --gold: #FAB940;
+    --lavender: #F7D9FC;
     --dark: #1a1a1a;
-    --gray: #888;
-    --border: #e5e2dc;
-    --bg: #f5f3ef;
-    --white: #ffffff;
-    --card-bg: #fafaf8;
+    --gray: #999;
+    --border: #3D1A4A;
+    --white: #FFFEF9;
   }
  
   * { box-sizing: border-box; margin: 0; padding: 0; }
  
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--dark);
+    background: linear-gradient(135deg, #25104D 0%, #5B1C2E 50%, #FAB940 100%);
     min-height: 100vh;
+    color: var(--dark);
     padding: 2rem;
   }
  
-  /* Top prompt bar */
   .prompt-bar {
     font-size: 0.95rem;
-    color: var(--dark);
+    color: rgba(255,255,255,0.85);
     margin-bottom: 1.5rem;
     font-weight: 400;
   }
  
-  /* Tab row */
   .tab-row {
     display: flex;
     align-items: center;
@@ -52,26 +45,28 @@
   .tab-btn {
     padding: 0.45rem 1.1rem;
     border-radius: 2rem;
-    border: 1px solid var(--border);
-    background: var(--white);
+    border: 1px solid rgba(247,217,252,0.3);
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
     font-family: 'DM Sans', sans-serif;
     font-size: 0.85rem;
     font-weight: 400;
-    color: var(--gray);
+    color: rgba(255,255,255,0.75);
     cursor: pointer;
-    transition: all 0.15s;
-  }
- 
-  .tab-btn.active {
-    background: var(--blue);
-    color: white;
-    border-color: var(--blue);
-    font-weight: 500;
+    transition: all 0.2s;
   }
  
   .tab-btn:hover:not(.active) {
-    border-color: #bbb;
-    color: var(--dark);
+    background: rgba(255,255,255,0.2);
+    color: white;
+  }
+ 
+  .tab-btn.active {
+    background: linear-gradient(135deg, #C2286B 0%, #5B1C2E 100%);
+    color: white;
+    border-color: transparent;
+    font-weight: 500;
+    box-shadow: 0 4px 14px rgba(194,40,107,0.45);
   }
  
   .more-btn {
@@ -79,19 +74,20 @@
     background: none;
     border: none;
     font-size: 1.2rem;
-    color: var(--gray);
+    color: rgba(255,255,255,0.6);
     cursor: pointer;
     padding: 0.3rem 0.5rem;
     letter-spacing: 2px;
   }
  
-  /* Main card */
   .main-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
-    max-width: 860px;
+    background: rgba(255, 254, 249, 0.92);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(247,217,252,0.3);
+    border-radius: 20px;
+    padding: 1.75rem;
+    max-width: 880px;
+    box-shadow: 0 12px 40px rgba(37,16,77,0.35);
   }
  
   .card-title {
@@ -101,7 +97,6 @@
     margin-bottom: 1.25rem;
   }
  
-  /* Stat cards row */
   .stats-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -110,32 +105,47 @@
   }
  
   .stat-card {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 1rem 1.1rem;
+    border-radius: 14px;
+    padding: 1.1rem 1.2rem;
+    color: white;
+  }
+ 
+  .stat-card.amethyst {
+    background: linear-gradient(135deg, #5B1C2E 0%, #25104D 100%);
+    box-shadow: 0 4px 16px rgba(37,16,77,0.4);
+  }
+ 
+  .stat-card.rose {
+    background: linear-gradient(135deg, #C2286B 0%, #8B1A4A 100%);
+    box-shadow: 0 4px 16px rgba(194,40,107,0.4);
+  }
+ 
+  .stat-card.gold {
+    background: linear-gradient(135deg, #FAB940 0%, #D4941A 100%);
+    box-shadow: 0 4px 16px rgba(250,185,64,0.4);
+    color: #25104D;
   }
  
   .stat-label {
-    font-size: 0.78rem;
-    color: var(--gray);
+    font-size: 0.72rem;
+    opacity: 0.85;
     margin-bottom: 0.3rem;
     font-weight: 400;
+    letter-spacing: 0.03em;
   }
  
   .stat-value {
-    font-size: 1.9rem;
+    font-size: 2rem;
     font-weight: 600;
-    color: var(--dark);
     line-height: 1.1;
   }
  
   .stat-sub {
-    font-size: 0.75rem;
-    color: var(--gray);
+    font-size: 0.72rem;
+    opacity: 0.75;
     margin-top: 0.25rem;
   }
  
-  /* Chart section */
   .charts-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -143,9 +153,10 @@
   }
  
   .chart-panel {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 1rem 1.1rem;
+    background: linear-gradient(145deg, rgba(247,217,252,0.2) 0%, rgba(250,185,64,0.08) 100%);
+    border: 1px solid rgba(194,40,107,0.15);
+    border-radius: 14px;
+    padding: 1.1rem 1.2rem;
   }
  
   .chart-panel-title {
@@ -155,7 +166,6 @@
     margin-bottom: 0.9rem;
   }
  
-  /* Bar chart rows */
   .bar-list { display: flex; flex-direction: column; gap: 0.55rem; }
  
   .bar-item {
@@ -177,15 +187,21 @@
   .bar-track {
     flex: 1;
     height: 13px;
-    background: #e8e5e0;
+    background: rgba(194,40,107,0.12);
     border-radius: 3px;
     overflow: hidden;
   }
  
-  .bar-fill {
+  .bar-fill-main {
     height: 100%;
     border-radius: 3px;
-    transition: width 0.8s ease;
+    background: linear-gradient(90deg, #C2286B 0%, #5B1C2E 100%);
+  }
+ 
+  .bar-fill-light {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #FAB940 0%, #D4941A 100%);
   }
  
   .bar-val {
@@ -196,7 +212,6 @@
     text-align: right;
   }
  
-  /* Zone pills grid */
   .zone-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -208,34 +223,44 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.55rem 0.85rem;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.82rem;
+    font-weight: 500;
+    color: white;
+  }
+ 
+  .pill-1 { background: linear-gradient(135deg, #F7D9FC, #E8A8F0); color: #25104D; }
+  .pill-2 { background: linear-gradient(135deg, #E8A8F0, #C2286B); color: white; }
+  .pill-3 { background: linear-gradient(135deg, #C2286B, #8B1A4A); color: white; }
+  .pill-4 { background: linear-gradient(135deg, #8B1A4A, #5B1C2E); color: white; }
+  .pill-5 { background: linear-gradient(135deg, #5B1C2E, #3A1020); color: white; }
+  .pill-6 { background: linear-gradient(135deg, #FAB940, #C2286B); color: white; }
+ 
+  .zone-pill span.badge { font-weight: 600; font-size: 0.85rem; }
+  .zone-note { font-size: 0.72rem; color: #888; margin-top: 0.6rem; }
+ 
+  .insight {
+    margin-top: 1rem;
+    padding: 0.9rem 1.1rem;
+    background: linear-gradient(135deg, rgba(194,40,107,0.07) 0%, rgba(37,16,77,0.1) 100%);
+    border-left: 3px solid var(--rose);
+    border-radius: 0 10px 10px 0;
+    font-size: 0.8rem;
+    color: var(--dark);
+    line-height: 1.6;
+  }
+ 
+  .insight strong {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 0.3rem;
     font-weight: 500;
   }
  
-  .zone-pill span.badge {
-    font-weight: 600;
-    font-size: 0.85rem;
-  }
- 
-  .pill-1 { background: var(--blue-xlight); color: #0C447C; }
-  .pill-2 { background: var(--blue-light); color: #0C447C; }
-  .pill-3 { background: var(--blue-mid); color: white; }
-  .pill-4 { background: var(--blue-dark); color: white; }
-  .pill-5 { background: var(--blue); color: white; }
-  .pill-6 { background: var(--blue-mid); color: white; }
- 
-  .zone-note {
-    font-size: 0.72rem;
-    color: var(--gray);
-    margin-top: 0.6rem;
-  }
- 
-  /* Page content */
-  .page { display: none; }
-  .page.active { display: block; }
- 
-  /* Investment page */
   .invest-list { display: flex; flex-direction: column; gap: 0.6rem; }
  
   .invest-item {
@@ -247,14 +272,13 @@
  
   .invest-name { width: 95px; text-align: right; color: #555; flex-shrink: 0; }
   .invest-track { flex: 1; height: 13px; border-radius: 3px; overflow: hidden; display: flex; }
-  .invest-e { background: var(--blue); height: 100%; }
-  .invest-w { background: var(--green); height: 100%; }
+  .invest-e { background: linear-gradient(90deg, #C2286B, #5B1C2E); height: 100%; }
+  .invest-w { background: linear-gradient(90deg, #FAB940, #D4941A); height: 100%; }
   .invest-val { width: 40px; text-align: right; font-weight: 500; color: var(--dark); font-size: 0.77rem; }
  
   .legend-row { display: flex; gap: 1rem; margin-bottom: 0.75rem; font-size: 0.77rem; color: #555; }
   .legend-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 4px; vertical-align: middle; }
  
-  /* Scenario page */
   .scenario-list { display: flex; flex-direction: column; gap: 0.6rem; }
  
   .scenario-item {
@@ -264,64 +288,32 @@
     font-size: 0.78rem;
   }
  
-  .scenario-name { width: 145px; color: #555; flex-shrink: 0; font-size: 0.77rem; }
-  .scenario-track { flex: 1; height: 13px; background: #e8e5e0; border-radius: 3px; overflow: hidden; }
+  .scenario-name { width: 155px; color: #555; flex-shrink: 0; font-size: 0.77rem; }
+  .scenario-track { flex: 1; height: 13px; background: rgba(194,40,107,0.12); border-radius: 3px; overflow: hidden; }
   .scenario-fill { height: 100%; border-radius: 3px; }
   .scenario-val { width: 38px; text-align: right; font-weight: 600; color: var(--dark); font-size: 0.82rem; }
  
-  .baseline-line {
-    position: relative;
-  }
- 
-  /* Insight */
-  .insight {
-    margin-top: 1rem;
-    padding: 0.85rem 1rem;
-    background: var(--blue-xlight);
-    border-left: 3px solid var(--blue);
-    border-radius: 0 8px 8px 0;
-    font-size: 0.8rem;
-    color: var(--dark);
-    line-height: 1.6;
-  }
- 
-  .insight strong {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 0.3rem;
-    font-weight: 500;
-  }
- 
-  /* Data table page */
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.8rem;
-  }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
  
   .data-table th {
     font-family: 'DM Mono', monospace;
     font-size: 0.62rem;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--gray);
+    color: white;
     text-align: left;
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0.75rem;
+    background: linear-gradient(135deg, #C2286B, #25104D);
   }
  
   .data-table td {
     padding: 0.65rem 0.75rem;
-    border-bottom: 1px solid #f0ede8;
+    border-bottom: 1px solid rgba(194,40,107,0.12);
     color: var(--dark);
   }
  
-  .data-table tr:hover td { background: var(--bg); }
-  .data-table .highlight td { background: #fffbf0; }
+  .data-table tr:hover td { background: rgba(247,217,252,0.2); }
+  .data-table .highlight td { background: rgba(250,185,64,0.08); }
  
   .rbadge {
     display: inline-block;
@@ -331,15 +323,17 @@
     font-family: 'DM Mono', monospace;
   }
  
-  .rbadge-n { background: var(--blue-xlight); color: var(--blue); }
-  .rbadge-s { background: #E1F5EE; color: var(--green); }
+  .rbadge-n { background: linear-gradient(135deg, #F7D9FC, #E8A8F0); color: #25104D; }
+  .rbadge-s { background: linear-gradient(135deg, #FAB940, #D4941A); color: #25104D; }
  
-  /* Footer credit */
+  .page { display: none; }
+  .page.active { display: block; }
+ 
   .footer-credit {
     text-align: center;
     margin-top: 1rem;
     font-size: 0.72rem;
-    color: var(--gray);
+    color: rgba(255,255,255,0.55);
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
   }
@@ -361,62 +355,35 @@
 <div id="overview" class="page active">
   <div class="main-card">
     <div class="card-title">Nigeria energy &amp; water access optimization</div>
- 
     <div class="stats-row">
-      <div class="stat-card">
+      <div class="stat-card amethyst">
         <div class="stat-label">Total people reached</div>
         <div class="stat-value">4.19M</div>
         <div class="stat-sub">Baseline $500M budget</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card rose">
         <div class="stat-label">Energy investment</div>
         <div class="stat-value">$300M</div>
         <div class="stat-sub">60% of total budget</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card gold">
         <div class="stat-label">Water investment</div>
         <div class="stat-value">$200M</div>
         <div class="stat-sub">40% of total budget</div>
       </div>
     </div>
- 
     <div class="charts-row">
       <div class="chart-panel">
         <div class="chart-panel-title">Total people reached by zone (M)</div>
         <div class="bar-list">
-          <div class="bar-item">
-            <span class="bar-name">South West</span>
-            <div class="bar-track"><div class="bar-fill" style="width:100%;background:#185FA5"></div></div>
-            <span class="bar-val">2.29</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">South East</span>
-            <div class="bar-track"><div class="bar-fill" style="width:71%;background:#185FA5"></div></div>
-            <span class="bar-val">1.63</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">North Central</span>
-            <div class="bar-track"><div class="bar-fill" style="width:3%;background:#B5D4F4"></div></div>
-            <span class="bar-val">0.07</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">South South</span>
-            <div class="bar-track"><div class="bar-fill" style="width:3.5%;background:#B5D4F4"></div></div>
-            <span class="bar-val">0.08</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">North West</span>
-            <div class="bar-track"><div class="bar-fill" style="width:2.6%;background:#B5D4F4"></div></div>
-            <span class="bar-val">0.06</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">North East</span>
-            <div class="bar-track"><div class="bar-fill" style="width:2.6%;background:#B5D4F4"></div></div>
-            <span class="bar-val">0.06</span>
-          </div>
+          <div class="bar-item"><span class="bar-name">South West</span><div class="bar-track"><div class="bar-fill-main" style="width:100%"></div></div><span class="bar-val">2.29</span></div>
+          <div class="bar-item"><span class="bar-name">South East</span><div class="bar-track"><div class="bar-fill-main" style="width:71%"></div></div><span class="bar-val">1.63</span></div>
+          <div class="bar-item"><span class="bar-name">North Central</span><div class="bar-track"><div class="bar-fill-light" style="width:3%"></div></div><span class="bar-val">0.07</span></div>
+          <div class="bar-item"><span class="bar-name">South South</span><div class="bar-track"><div class="bar-fill-light" style="width:3.5%"></div></div><span class="bar-val">0.08</span></div>
+          <div class="bar-item"><span class="bar-name">North West</span><div class="bar-track"><div class="bar-fill-light" style="width:2.6%"></div></div><span class="bar-val">0.06</span></div>
+          <div class="bar-item"><span class="bar-name">North East</span><div class="bar-track"><div class="bar-fill-light" style="width:2.6%"></div></div><span class="bar-val">0.06</span></div>
         </div>
       </div>
- 
       <div class="chart-panel">
         <div class="chart-panel-title">Access gap by zone (people without access)</div>
         <div class="zone-grid">
@@ -430,7 +397,6 @@
         <div class="zone-note">Darker = more people without electricity access</div>
       </div>
     </div>
- 
     <div class="insight">
       <strong>Key insight</strong>
       The LP model concentrates investment in South West and South East due to lowest cost per beneficiary ($109 and $129). All other zones receive minimum equity allocation of $10M each, revealing the efficiency vs. equity tradeoff central to development policy.
@@ -442,85 +408,34 @@
 <div id="investment" class="page">
   <div class="main-card">
     <div class="card-title">Investment vs impact by zone</div>
- 
     <div class="charts-row">
       <div class="chart-panel">
         <div class="chart-panel-title">Energy &amp; water allocation ($M)</div>
         <div class="legend-row">
-          <span><span class="legend-dot" style="background:#185FA5"></span>Energy</span>
-          <span><span class="legend-dot" style="background:#1D9E75"></span>Water</span>
+          <span><span class="legend-dot" style="background:linear-gradient(90deg,#C2286B,#5B1C2E)"></span>Energy</span>
+          <span><span class="legend-dot" style="background:linear-gradient(90deg,#FAB940,#D4941A)"></span>Water</span>
         </div>
         <div class="invest-list">
-          <div class="invest-item">
-            <span class="invest-name">South West</span>
-            <div class="invest-track"><div class="invest-e" style="width:60%"></div><div class="invest-w" style="width:40%"></div></div>
-            <span class="invest-val">$250M</span>
-          </div>
-          <div class="invest-item">
-            <span class="invest-name">South East</span>
-            <div class="invest-track"><div class="invest-e" style="width:52%"></div><div class="invest-w" style="width:32%"></div></div>
-            <span class="invest-val">$210M</span>
-          </div>
-          <div class="invest-item">
-            <span class="invest-name">North West</span>
-            <div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div>
-            <span class="invest-val">$10M</span>
-          </div>
-          <div class="invest-item">
-            <span class="invest-name">North East</span>
-            <div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div>
-            <span class="invest-val">$10M</span>
-          </div>
-          <div class="invest-item">
-            <span class="invest-name">North Central</span>
-            <div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div>
-            <span class="invest-val">$10M</span>
-          </div>
-          <div class="invest-item">
-            <span class="invest-name">South South</span>
-            <div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div>
-            <span class="invest-val">$10M</span>
-          </div>
+          <div class="invest-item"><span class="invest-name">South West</span><div class="invest-track"><div class="invest-e" style="width:60%"></div><div class="invest-w" style="width:40%"></div></div><span class="invest-val">$250M</span></div>
+          <div class="invest-item"><span class="invest-name">South East</span><div class="invest-track"><div class="invest-e" style="width:52%"></div><div class="invest-w" style="width:32%"></div></div><span class="invest-val">$210M</span></div>
+          <div class="invest-item"><span class="invest-name">North West</span><div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div><span class="invest-val">$10M</span></div>
+          <div class="invest-item"><span class="invest-name">North East</span><div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div><span class="invest-val">$10M</span></div>
+          <div class="invest-item"><span class="invest-name">North Central</span><div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div><span class="invest-val">$10M</span></div>
+          <div class="invest-item"><span class="invest-name">South South</span><div class="invest-track"><div class="invest-e" style="width:4%"></div><div class="invest-w" style="width:2%"></div></div><span class="invest-val">$10M</span></div>
         </div>
       </div>
- 
       <div class="chart-panel">
         <div class="chart-panel-title">Cost per beneficiary ($)</div>
         <div class="bar-list">
-          <div class="bar-item">
-            <span class="bar-name">South West</span>
-            <div class="bar-track"><div class="bar-fill" style="width:53%;background:#534AB7"></div></div>
-            <span class="bar-val">$109</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">South East</span>
-            <div class="bar-track"><div class="bar-fill" style="width:66%;background:#534AB7"></div></div>
-            <span class="bar-val">$129</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">North Central</span>
-            <div class="bar-track"><div class="bar-fill" style="width:73%;background:#AFA9EC"></div></div>
-            <span class="bar-val">$142</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">South South</span>
-            <div class="bar-track"><div class="bar-fill" style="width:62%;background:#AFA9EC"></div></div>
-            <span class="bar-val">$121</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">North West</span>
-            <div class="bar-track"><div class="bar-fill" style="width:84%;background:#AFA9EC"></div></div>
-            <span class="bar-val">$164</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-name">North East</span>
-            <div class="bar-track"><div class="bar-fill" style="width:92%;background:#AFA9EC"></div></div>
-            <span class="bar-val">$179</span>
-          </div>
+          <div class="bar-item"><span class="bar-name">South West</span><div class="bar-track"><div class="bar-fill-main" style="width:53%"></div></div><span class="bar-val">$109</span></div>
+          <div class="bar-item"><span class="bar-name">South East</span><div class="bar-track"><div class="bar-fill-main" style="width:66%"></div></div><span class="bar-val">$129</span></div>
+          <div class="bar-item"><span class="bar-name">North Central</span><div class="bar-track"><div class="bar-fill-light" style="width:73%"></div></div><span class="bar-val">$142</span></div>
+          <div class="bar-item"><span class="bar-name">South South</span><div class="bar-track"><div class="bar-fill-light" style="width:62%"></div></div><span class="bar-val">$121</span></div>
+          <div class="bar-item"><span class="bar-name">North West</span><div class="bar-track"><div class="bar-fill-light" style="width:84%"></div></div><span class="bar-val">$164</span></div>
+          <div class="bar-item"><span class="bar-name">North East</span><div class="bar-track"><div class="bar-fill-light" style="width:92%"></div></div><span class="bar-val">$179</span></div>
         </div>
       </div>
     </div>
- 
     <div class="insight">
       <strong>Key insight</strong>
       Water investment reaches more people per dollar than energy in every zone. Cost to reach one person via water averages $65-$120 vs $200-$350 for energy. Shifting to a 50/50 budget split reaches 420,000 more people at no additional cost.
@@ -532,64 +447,37 @@
 <div id="scenarios" class="page">
   <div class="main-card">
     <div class="card-title">Scenario analysis &mdash; people reached by budget &amp; priority</div>
- 
     <div class="stats-row">
-      <div class="stat-card">
+      <div class="stat-card amethyst">
         <div class="stat-label">Best scenario</div>
         <div class="stat-value">7.69M</div>
         <div class="stat-sub">Maximum impact at $1,000M</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card rose">
         <div class="stat-label">Water priority gain</div>
         <div class="stat-value">+0.42M</div>
         <div class="stat-sub">50/50 vs 60/40 baseline</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card gold">
         <div class="stat-label">Energy priority loss</div>
         <div class="stat-value">-0.46M</div>
         <div class="stat-sub">70/30 vs 60/40 baseline</div>
       </div>
     </div>
- 
     <div class="chart-panel" style="margin-bottom:0.75rem">
       <div class="chart-panel-title">People reached (M) by scenario</div>
       <div class="scenario-list">
-        <div class="scenario-item">
-          <span class="scenario-name">Low budget ($250M)</span>
-          <div class="scenario-track"><div class="scenario-fill" style="width:28%;background:#B5D4F4"></div></div>
-          <span class="scenario-val">2.14M</span>
-        </div>
-        <div class="scenario-item">
-          <span class="scenario-name">Baseline ($500M)</span>
-          <div class="scenario-track"><div class="scenario-fill" style="width:54%;background:#185FA5"></div></div>
-          <span class="scenario-val">4.19M</span>
-        </div>
-        <div class="scenario-item">
-          <span class="scenario-name">Water priority 50/50</span>
-          <div class="scenario-track"><div class="scenario-fill" style="width:60%;background:#1D9E75"></div></div>
-          <span class="scenario-val">4.61M</span>
-        </div>
-        <div class="scenario-item">
-          <span class="scenario-name">Energy priority 70/30</span>
-          <div class="scenario-track"><div class="scenario-fill" style="width:49%;background:#BA7517"></div></div>
-          <span class="scenario-val">3.73M</span>
-        </div>
-        <div class="scenario-item">
-          <span class="scenario-name">High budget ($750M)</span>
-          <div class="scenario-track"><div class="scenario-fill" style="width:79%;background:#534AB7"></div></div>
-          <span class="scenario-val">6.06M</span>
-        </div>
-        <div class="scenario-item">
-          <span class="scenario-name">Maximum ($1,000M)</span>
-          <div class="scenario-track"><div class="scenario-fill" style="width:100%;background:#3C3489"></div></div>
-          <span class="scenario-val">7.69M</span>
-        </div>
+        <div class="scenario-item"><span class="scenario-name">Low budget ($250M)</span><div class="scenario-track"><div class="scenario-fill" style="width:28%;background:linear-gradient(90deg,#F7D9FC,#E8A8F0)"></div></div><span class="scenario-val">2.14M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Baseline ($500M)</span><div class="scenario-track"><div class="scenario-fill" style="width:55%;background:linear-gradient(90deg,#C2286B,#5B1C2E)"></div></div><span class="scenario-val">4.19M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Water priority 50/50</span><div class="scenario-track"><div class="scenario-fill" style="width:60%;background:linear-gradient(90deg,#FAB940,#D4941A)"></div></div><span class="scenario-val">4.61M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Energy priority 70/30</span><div class="scenario-track"><div class="scenario-fill" style="width:49%;background:linear-gradient(90deg,#8B1A4A,#5B1C2E)"></div></div><span class="scenario-val">3.73M</span></div>
+        <div class="scenario-item"><span class="scenario-name">High budget ($750M)</span><div class="scenario-track"><div class="scenario-fill" style="width:79%;background:linear-gradient(90deg,#5B1C2E,#25104D)"></div></div><span class="scenario-val">6.06M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Maximum ($1,000M)</span><div class="scenario-track"><div class="scenario-fill" style="width:100%;background:linear-gradient(90deg,#25104D,#0D081F)"></div></div><span class="scenario-val">7.69M</span></div>
       </div>
     </div>
- 
     <div class="insight">
       <strong>Policy implication</strong>
-      Reallocating budget toward water (50/50 split) reaches 420,000 more people at zero additional cost. Doubling the budget from $500M to $1B nearly doubles people reached, suggesting near-linear returns at this scale.
+      Reallocating budget toward water (50/50 split) reaches 420,000 more people at zero additional cost. Doubling the budget from $500M to $1B nearly doubles people reached, suggesting strong returns to additional investment at this scale.
     </div>
   </div>
 </div>
@@ -601,14 +489,7 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th>Zone</th>
-          <th>Region</th>
-          <th>Population (M)</th>
-          <th>Electricity access</th>
-          <th>Water access</th>
-          <th>Energy invest.</th>
-          <th>Water invest.</th>
-          <th>People reached</th>
+          <th>Zone</th><th>Region</th><th>Population (M)</th><th>Electricity access</th><th>Water access</th><th>Energy invest.</th><th>Water invest.</th><th>People reached</th>
         </tr>
       </thead>
       <tbody>
@@ -620,7 +501,6 @@
         <tr><td>South South</td><td><span class="rbadge rbadge-s">South</span></td><td>28.5</td><td>65%</td><td>38%</td><td>$5M</td><td>$5M</td><td><strong>0.08M</strong></td></tr>
       </tbody>
     </table>
- 
     <div class="insight" style="margin-top:1rem">
       <strong>Methodology</strong>
       Linear programming model solved using Excel Solver (Simplex LP) and Python PuLP. Both confirmed a global optimal solution of 4.19M people reached with a $500M budget. Sources: World Bank SDG7 2023, UNICEF WASHNORM 2021, NBS Nigeria, ESMAP 2025.
