@@ -7,32 +7,76 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --amethyst: #25104D;
-    --bordeaux: #5B1C2E;
-    --rose: #C2286B;
-    --gold: #FAB940;
-    --lavender: #F7D9FC;
+    --space: #25344F;
+    --slate: #617891;
+    --tan: #D5B893;
+    --coffee: #6F4D38;
+    --caput: #632024;
     --dark: #1a1a1a;
     --gray: #999;
-    --border: #3D1A4A;
-    --white: #FFFEF9;
+    --white: #FDFBF8;
   }
  
   * { box-sizing: border-box; margin: 0; padding: 0; }
  
   body {
     font-family: 'DM Sans', sans-serif;
-    background: linear-gradient(135deg, #25104D 0%, #5B1C2E 50%, #FAB940 100%);
     min-height: 100vh;
     color: var(--dark);
     padding: 2rem;
+    position: relative;
+    overflow-x: hidden;
+  }
+ 
+  /* Watery animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(97,120,145,0.55) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(37,52,79,0.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 80%, rgba(111,77,56,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(99,32,36,0.35) 0%, transparent 45%),
+      radial-gradient(ellipse at 90% 70%, rgba(213,184,147,0.25) 0%, transparent 40%),
+      linear-gradient(160deg, #25344F 0%, #617891 40%, #3A5068 70%, #25344F 100%);
+    animation: waterShift 10s ease-in-out infinite alternate;
+  }
+ 
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      repeating-linear-gradient(
+        -30deg,
+        transparent,
+        transparent 40px,
+        rgba(213,184,147,0.03) 40px,
+        rgba(213,184,147,0.03) 80px
+      );
+    animation: ripple 8s ease-in-out infinite alternate;
+  }
+ 
+  @keyframes waterShift {
+    0%   { filter: hue-rotate(0deg) brightness(1); }
+    50%  { filter: hue-rotate(8deg) brightness(1.05); }
+    100% { filter: hue-rotate(-5deg) brightness(0.97); }
+  }
+ 
+  @keyframes ripple {
+    0%   { transform: skewY(0deg) translateY(0px); opacity: 1; }
+    100% { transform: skewY(1deg) translateY(-8px); opacity: 0.7; }
   }
  
   .prompt-bar {
     font-size: 0.95rem;
-    color: rgba(255,255,255,0.85);
+    color: rgba(213,184,147,0.9);
     margin-bottom: 1.5rem;
     font-weight: 400;
+    letter-spacing: 0.02em;
   }
  
   .tab-row {
@@ -45,28 +89,29 @@
   .tab-btn {
     padding: 0.45rem 1.1rem;
     border-radius: 2rem;
-    border: 1px solid rgba(247,217,252,0.3);
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(213,184,147,0.25);
+    background: rgba(37,52,79,0.45);
+    backdrop-filter: blur(12px);
     font-family: 'DM Sans', sans-serif;
     font-size: 0.85rem;
     font-weight: 400;
-    color: rgba(255,255,255,0.75);
+    color: rgba(213,184,147,0.8);
     cursor: pointer;
     transition: all 0.2s;
   }
  
   .tab-btn:hover:not(.active) {
-    background: rgba(255,255,255,0.2);
-    color: white;
+    background: rgba(97,120,145,0.45);
+    color: #D5B893;
+    border-color: rgba(213,184,147,0.4);
   }
  
   .tab-btn.active {
-    background: linear-gradient(135deg, #C2286B 0%, #5B1C2E 100%);
-    color: white;
+    background: linear-gradient(135deg, #617891 0%, #25344F 100%);
+    color: #D5B893;
     border-color: transparent;
     font-weight: 500;
-    box-shadow: 0 4px 14px rgba(194,40,107,0.45);
+    box-shadow: 0 4px 14px rgba(37,52,79,0.55);
   }
  
   .more-btn {
@@ -74,26 +119,26 @@
     background: none;
     border: none;
     font-size: 1.2rem;
-    color: rgba(255,255,255,0.6);
+    color: rgba(213,184,147,0.6);
     cursor: pointer;
     padding: 0.3rem 0.5rem;
     letter-spacing: 2px;
   }
  
   .main-card {
-    background: rgba(255, 254, 249, 0.92);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(247,217,252,0.3);
+    background: rgba(253,251,248,0.91);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(213,184,147,0.35);
     border-radius: 20px;
     padding: 1.75rem;
     max-width: 880px;
-    box-shadow: 0 12px 40px rgba(37,16,77,0.35);
+    box-shadow: 0 12px 48px rgba(37,52,79,0.3), 0 2px 8px rgba(99,32,36,0.1);
   }
  
   .card-title {
     font-size: 1.05rem;
     font-weight: 500;
-    color: var(--dark);
+    color: var(--space);
     margin-bottom: 1.25rem;
   }
  
@@ -110,25 +155,24 @@
     color: white;
   }
  
-  .stat-card.amethyst {
-    background: linear-gradient(135deg, #5B1C2E 0%, #25104D 100%);
-    box-shadow: 0 4px 16px rgba(37,16,77,0.4);
+  .stat-card.space {
+    background: linear-gradient(135deg, #617891 0%, #25344F 100%);
+    box-shadow: 0 4px 16px rgba(37,52,79,0.4);
   }
  
-  .stat-card.rose {
-    background: linear-gradient(135deg, #C2286B 0%, #8B1A4A 100%);
-    box-shadow: 0 4px 16px rgba(194,40,107,0.4);
+  .stat-card.coffee {
+    background: linear-gradient(135deg, #6F4D38 0%, #4A3025 100%);
+    box-shadow: 0 4px 16px rgba(111,77,56,0.4);
   }
  
-  .stat-card.gold {
-    background: linear-gradient(135deg, #FAB940 0%, #D4941A 100%);
-    box-shadow: 0 4px 16px rgba(250,185,64,0.4);
-    color: #25104D;
+  .stat-card.caput {
+    background: linear-gradient(135deg, #632024 0%, #3D1316 100%);
+    box-shadow: 0 4px 16px rgba(99,32,36,0.4);
   }
  
   .stat-label {
     font-size: 0.72rem;
-    opacity: 0.85;
+    opacity: 0.8;
     margin-bottom: 0.3rem;
     font-weight: 400;
     letter-spacing: 0.03em;
@@ -142,7 +186,7 @@
  
   .stat-sub {
     font-size: 0.72rem;
-    opacity: 0.75;
+    opacity: 0.7;
     margin-top: 0.25rem;
   }
  
@@ -153,8 +197,8 @@
   }
  
   .chart-panel {
-    background: linear-gradient(145deg, rgba(247,217,252,0.2) 0%, rgba(250,185,64,0.08) 100%);
-    border: 1px solid rgba(194,40,107,0.15);
+    background: linear-gradient(145deg, rgba(97,120,145,0.08) 0%, rgba(213,184,147,0.1) 100%);
+    border: 1px solid rgba(97,120,145,0.2);
     border-radius: 14px;
     padding: 1.1rem 1.2rem;
   }
@@ -162,7 +206,7 @@
   .chart-panel-title {
     font-size: 0.82rem;
     font-weight: 500;
-    color: var(--dark);
+    color: var(--space);
     margin-bottom: 0.9rem;
   }
  
@@ -187,7 +231,7 @@
   .bar-track {
     flex: 1;
     height: 13px;
-    background: rgba(194,40,107,0.12);
+    background: rgba(97,120,145,0.15);
     border-radius: 3px;
     overflow: hidden;
   }
@@ -195,13 +239,13 @@
   .bar-fill-main {
     height: 100%;
     border-radius: 3px;
-    background: linear-gradient(90deg, #C2286B 0%, #5B1C2E 100%);
+    background: linear-gradient(90deg, #617891 0%, #25344F 100%);
   }
  
-  .bar-fill-light {
+  .bar-fill-warm {
     height: 100%;
     border-radius: 3px;
-    background: linear-gradient(90deg, #FAB940 0%, #D4941A 100%);
+    background: linear-gradient(90deg, #D5B893 0%, #6F4D38 100%);
   }
  
   .bar-val {
@@ -226,15 +270,14 @@
     border-radius: 10px;
     font-size: 0.82rem;
     font-weight: 500;
-    color: white;
   }
  
-  .pill-1 { background: linear-gradient(135deg, #F7D9FC, #E8A8F0); color: #25104D; }
-  .pill-2 { background: linear-gradient(135deg, #E8A8F0, #C2286B); color: white; }
-  .pill-3 { background: linear-gradient(135deg, #C2286B, #8B1A4A); color: white; }
-  .pill-4 { background: linear-gradient(135deg, #8B1A4A, #5B1C2E); color: white; }
-  .pill-5 { background: linear-gradient(135deg, #5B1C2E, #3A1020); color: white; }
-  .pill-6 { background: linear-gradient(135deg, #FAB940, #C2286B); color: white; }
+  .pill-1 { background: linear-gradient(135deg, #A8BDCE, #8AAABB); color: #25344F; }
+  .pill-2 { background: linear-gradient(135deg, #8AAABB, #617891); color: white; }
+  .pill-3 { background: linear-gradient(135deg, #617891, #3D5A72); color: white; }
+  .pill-4 { background: linear-gradient(135deg, #3D5A72, #25344F); color: #D5B893; }
+  .pill-5 { background: linear-gradient(135deg, #25344F, #151E2E); color: #D5B893; }
+  .pill-6 { background: linear-gradient(135deg, #6F4D38, #632024); color: #D5B893; }
  
   .zone-pill span.badge { font-weight: 600; font-size: 0.85rem; }
   .zone-note { font-size: 0.72rem; color: #888; margin-top: 0.6rem; }
@@ -242,8 +285,8 @@
   .insight {
     margin-top: 1rem;
     padding: 0.9rem 1.1rem;
-    background: linear-gradient(135deg, rgba(194,40,107,0.07) 0%, rgba(37,16,77,0.1) 100%);
-    border-left: 3px solid var(--rose);
+    background: linear-gradient(135deg, rgba(97,120,145,0.08) 0%, rgba(37,52,79,0.1) 100%);
+    border-left: 3px solid var(--slate);
     border-radius: 0 10px 10px 0;
     font-size: 0.8rem;
     color: var(--dark);
@@ -256,7 +299,7 @@
     font-size: 0.62rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--rose);
+    color: var(--slate);
     margin-bottom: 0.3rem;
     font-weight: 500;
   }
@@ -272,8 +315,8 @@
  
   .invest-name { width: 95px; text-align: right; color: #555; flex-shrink: 0; }
   .invest-track { flex: 1; height: 13px; border-radius: 3px; overflow: hidden; display: flex; }
-  .invest-e { background: linear-gradient(90deg, #C2286B, #5B1C2E); height: 100%; }
-  .invest-w { background: linear-gradient(90deg, #FAB940, #D4941A); height: 100%; }
+  .invest-e { background: linear-gradient(90deg, #617891, #25344F); height: 100%; }
+  .invest-w { background: linear-gradient(90deg, #D5B893, #6F4D38); height: 100%; }
   .invest-val { width: 40px; text-align: right; font-weight: 500; color: var(--dark); font-size: 0.77rem; }
  
   .legend-row { display: flex; gap: 1rem; margin-bottom: 0.75rem; font-size: 0.77rem; color: #555; }
@@ -289,7 +332,7 @@
   }
  
   .scenario-name { width: 155px; color: #555; flex-shrink: 0; font-size: 0.77rem; }
-  .scenario-track { flex: 1; height: 13px; background: rgba(194,40,107,0.12); border-radius: 3px; overflow: hidden; }
+  .scenario-track { flex: 1; height: 13px; background: rgba(97,120,145,0.15); border-radius: 3px; overflow: hidden; }
   .scenario-fill { height: 100%; border-radius: 3px; }
   .scenario-val { width: 38px; text-align: right; font-weight: 600; color: var(--dark); font-size: 0.82rem; }
  
@@ -300,20 +343,20 @@
     font-size: 0.62rem;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: white;
+    color: #D5B893;
     text-align: left;
     padding: 0.6rem 0.75rem;
-    background: linear-gradient(135deg, #C2286B, #25104D);
+    background: linear-gradient(135deg, #617891, #25344F);
   }
  
   .data-table td {
     padding: 0.65rem 0.75rem;
-    border-bottom: 1px solid rgba(194,40,107,0.12);
+    border-bottom: 1px solid rgba(97,120,145,0.15);
     color: var(--dark);
   }
  
-  .data-table tr:hover td { background: rgba(247,217,252,0.2); }
-  .data-table .highlight td { background: rgba(250,185,64,0.08); }
+  .data-table tr:hover td { background: rgba(97,120,145,0.07); }
+  .data-table .highlight td { background: rgba(213,184,147,0.1); }
  
   .rbadge {
     display: inline-block;
@@ -323,8 +366,8 @@
     font-family: 'DM Mono', monospace;
   }
  
-  .rbadge-n { background: linear-gradient(135deg, #F7D9FC, #E8A8F0); color: #25104D; }
-  .rbadge-s { background: linear-gradient(135deg, #FAB940, #D4941A); color: #25104D; }
+  .rbadge-n { background: linear-gradient(135deg, #A8BDCE, #617891); color: white; }
+  .rbadge-s { background: linear-gradient(135deg, #D5B893, #6F4D38); color: white; }
  
   .page { display: none; }
   .page.active { display: block; }
@@ -333,7 +376,7 @@
     text-align: center;
     margin-top: 1rem;
     font-size: 0.72rem;
-    color: rgba(255,255,255,0.55);
+    color: rgba(213,184,147,0.55);
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
   }
@@ -356,17 +399,17 @@
   <div class="main-card">
     <div class="card-title">Nigeria energy &amp; water access optimization</div>
     <div class="stats-row">
-      <div class="stat-card amethyst">
+      <div class="stat-card space">
         <div class="stat-label">Total people reached</div>
         <div class="stat-value">4.19M</div>
         <div class="stat-sub">Baseline $500M budget</div>
       </div>
-      <div class="stat-card rose">
+      <div class="stat-card coffee">
         <div class="stat-label">Energy investment</div>
         <div class="stat-value">$300M</div>
         <div class="stat-sub">60% of total budget</div>
       </div>
-      <div class="stat-card gold">
+      <div class="stat-card caput">
         <div class="stat-label">Water investment</div>
         <div class="stat-value">$200M</div>
         <div class="stat-sub">40% of total budget</div>
@@ -378,10 +421,10 @@
         <div class="bar-list">
           <div class="bar-item"><span class="bar-name">South West</span><div class="bar-track"><div class="bar-fill-main" style="width:100%"></div></div><span class="bar-val">2.29</span></div>
           <div class="bar-item"><span class="bar-name">South East</span><div class="bar-track"><div class="bar-fill-main" style="width:71%"></div></div><span class="bar-val">1.63</span></div>
-          <div class="bar-item"><span class="bar-name">North Central</span><div class="bar-track"><div class="bar-fill-light" style="width:3%"></div></div><span class="bar-val">0.07</span></div>
-          <div class="bar-item"><span class="bar-name">South South</span><div class="bar-track"><div class="bar-fill-light" style="width:3.5%"></div></div><span class="bar-val">0.08</span></div>
-          <div class="bar-item"><span class="bar-name">North West</span><div class="bar-track"><div class="bar-fill-light" style="width:2.6%"></div></div><span class="bar-val">0.06</span></div>
-          <div class="bar-item"><span class="bar-name">North East</span><div class="bar-track"><div class="bar-fill-light" style="width:2.6%"></div></div><span class="bar-val">0.06</span></div>
+          <div class="bar-item"><span class="bar-name">North Central</span><div class="bar-track"><div class="bar-fill-warm" style="width:3%"></div></div><span class="bar-val">0.07</span></div>
+          <div class="bar-item"><span class="bar-name">South South</span><div class="bar-track"><div class="bar-fill-warm" style="width:3.5%"></div></div><span class="bar-val">0.08</span></div>
+          <div class="bar-item"><span class="bar-name">North West</span><div class="bar-track"><div class="bar-fill-warm" style="width:2.6%"></div></div><span class="bar-val">0.06</span></div>
+          <div class="bar-item"><span class="bar-name">North East</span><div class="bar-track"><div class="bar-fill-warm" style="width:2.6%"></div></div><span class="bar-val">0.06</span></div>
         </div>
       </div>
       <div class="chart-panel">
@@ -412,8 +455,8 @@
       <div class="chart-panel">
         <div class="chart-panel-title">Energy &amp; water allocation ($M)</div>
         <div class="legend-row">
-          <span><span class="legend-dot" style="background:linear-gradient(90deg,#C2286B,#5B1C2E)"></span>Energy</span>
-          <span><span class="legend-dot" style="background:linear-gradient(90deg,#FAB940,#D4941A)"></span>Water</span>
+          <span><span class="legend-dot" style="background:linear-gradient(90deg,#617891,#25344F)"></span>Energy</span>
+          <span><span class="legend-dot" style="background:linear-gradient(90deg,#D5B893,#6F4D38)"></span>Water</span>
         </div>
         <div class="invest-list">
           <div class="invest-item"><span class="invest-name">South West</span><div class="invest-track"><div class="invest-e" style="width:60%"></div><div class="invest-w" style="width:40%"></div></div><span class="invest-val">$250M</span></div>
@@ -429,10 +472,10 @@
         <div class="bar-list">
           <div class="bar-item"><span class="bar-name">South West</span><div class="bar-track"><div class="bar-fill-main" style="width:53%"></div></div><span class="bar-val">$109</span></div>
           <div class="bar-item"><span class="bar-name">South East</span><div class="bar-track"><div class="bar-fill-main" style="width:66%"></div></div><span class="bar-val">$129</span></div>
-          <div class="bar-item"><span class="bar-name">North Central</span><div class="bar-track"><div class="bar-fill-light" style="width:73%"></div></div><span class="bar-val">$142</span></div>
-          <div class="bar-item"><span class="bar-name">South South</span><div class="bar-track"><div class="bar-fill-light" style="width:62%"></div></div><span class="bar-val">$121</span></div>
-          <div class="bar-item"><span class="bar-name">North West</span><div class="bar-track"><div class="bar-fill-light" style="width:84%"></div></div><span class="bar-val">$164</span></div>
-          <div class="bar-item"><span class="bar-name">North East</span><div class="bar-track"><div class="bar-fill-light" style="width:92%"></div></div><span class="bar-val">$179</span></div>
+          <div class="bar-item"><span class="bar-name">North Central</span><div class="bar-track"><div class="bar-fill-warm" style="width:73%"></div></div><span class="bar-val">$142</span></div>
+          <div class="bar-item"><span class="bar-name">South South</span><div class="bar-track"><div class="bar-fill-warm" style="width:62%"></div></div><span class="bar-val">$121</span></div>
+          <div class="bar-item"><span class="bar-name">North West</span><div class="bar-track"><div class="bar-fill-warm" style="width:84%"></div></div><span class="bar-val">$164</span></div>
+          <div class="bar-item"><span class="bar-name">North East</span><div class="bar-track"><div class="bar-fill-warm" style="width:92%"></div></div><span class="bar-val">$179</span></div>
         </div>
       </div>
     </div>
@@ -448,17 +491,17 @@
   <div class="main-card">
     <div class="card-title">Scenario analysis &mdash; people reached by budget &amp; priority</div>
     <div class="stats-row">
-      <div class="stat-card amethyst">
+      <div class="stat-card space">
         <div class="stat-label">Best scenario</div>
         <div class="stat-value">7.69M</div>
         <div class="stat-sub">Maximum impact at $1,000M</div>
       </div>
-      <div class="stat-card rose">
+      <div class="stat-card coffee">
         <div class="stat-label">Water priority gain</div>
         <div class="stat-value">+0.42M</div>
         <div class="stat-sub">50/50 vs 60/40 baseline</div>
       </div>
-      <div class="stat-card gold">
+      <div class="stat-card caput">
         <div class="stat-label">Energy priority loss</div>
         <div class="stat-value">-0.46M</div>
         <div class="stat-sub">70/30 vs 60/40 baseline</div>
@@ -467,12 +510,12 @@
     <div class="chart-panel" style="margin-bottom:0.75rem">
       <div class="chart-panel-title">People reached (M) by scenario</div>
       <div class="scenario-list">
-        <div class="scenario-item"><span class="scenario-name">Low budget ($250M)</span><div class="scenario-track"><div class="scenario-fill" style="width:28%;background:linear-gradient(90deg,#F7D9FC,#E8A8F0)"></div></div><span class="scenario-val">2.14M</span></div>
-        <div class="scenario-item"><span class="scenario-name">Baseline ($500M)</span><div class="scenario-track"><div class="scenario-fill" style="width:55%;background:linear-gradient(90deg,#C2286B,#5B1C2E)"></div></div><span class="scenario-val">4.19M</span></div>
-        <div class="scenario-item"><span class="scenario-name">Water priority 50/50</span><div class="scenario-track"><div class="scenario-fill" style="width:60%;background:linear-gradient(90deg,#FAB940,#D4941A)"></div></div><span class="scenario-val">4.61M</span></div>
-        <div class="scenario-item"><span class="scenario-name">Energy priority 70/30</span><div class="scenario-track"><div class="scenario-fill" style="width:49%;background:linear-gradient(90deg,#8B1A4A,#5B1C2E)"></div></div><span class="scenario-val">3.73M</span></div>
-        <div class="scenario-item"><span class="scenario-name">High budget ($750M)</span><div class="scenario-track"><div class="scenario-fill" style="width:79%;background:linear-gradient(90deg,#5B1C2E,#25104D)"></div></div><span class="scenario-val">6.06M</span></div>
-        <div class="scenario-item"><span class="scenario-name">Maximum ($1,000M)</span><div class="scenario-track"><div class="scenario-fill" style="width:100%;background:linear-gradient(90deg,#25104D,#0D081F)"></div></div><span class="scenario-val">7.69M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Low budget ($250M)</span><div class="scenario-track"><div class="scenario-fill" style="width:28%;background:linear-gradient(90deg,#A8BDCE,#617891)"></div></div><span class="scenario-val">2.14M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Baseline ($500M)</span><div class="scenario-track"><div class="scenario-fill" style="width:55%;background:linear-gradient(90deg,#617891,#25344F)"></div></div><span class="scenario-val">4.19M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Water priority 50/50</span><div class="scenario-track"><div class="scenario-fill" style="width:60%;background:linear-gradient(90deg,#D5B893,#6F4D38)"></div></div><span class="scenario-val">4.61M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Energy priority 70/30</span><div class="scenario-track"><div class="scenario-fill" style="width:49%;background:linear-gradient(90deg,#6F4D38,#632024)"></div></div><span class="scenario-val">3.73M</span></div>
+        <div class="scenario-item"><span class="scenario-name">High budget ($750M)</span><div class="scenario-track"><div class="scenario-fill" style="width:79%;background:linear-gradient(90deg,#3D5A72,#25344F)"></div></div><span class="scenario-val">6.06M</span></div>
+        <div class="scenario-item"><span class="scenario-name">Maximum ($1,000M)</span><div class="scenario-track"><div class="scenario-fill" style="width:100%;background:linear-gradient(90deg,#25344F,#0D1520)"></div></div><span class="scenario-val">7.69M</span></div>
       </div>
     </div>
     <div class="insight">
